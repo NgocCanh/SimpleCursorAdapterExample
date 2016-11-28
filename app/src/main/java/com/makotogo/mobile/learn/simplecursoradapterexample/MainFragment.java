@@ -19,7 +19,7 @@ package com.makotogo.mobile.learn.simplecursoradapterexample;
 import android.app.Fragment;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +66,6 @@ import android.widget.Toast;
  * <p>https://github.com/makotogo</p>
  */
 public class MainFragment extends Fragment {
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         processFragmentArguments();
@@ -152,13 +151,8 @@ public class MainFragment extends Fragment {
      * Part of the Configure/Init/Update pattern.
      */
     private void updateUI() {
-        // Update the ListView with the current contents of the
-        /// DB so it's always up-to-date
-        ListView listView = (ListView) getView(getView(), R.id.listView_people);
-        SimpleCursorAdapter listAdapter = (SimpleCursorAdapter) listView.getAdapter();
-        Cursor newCursor = DbHelper.instance(getActivity()).fetchAll();
-        listAdapter.changeCursor(newCursor);
-        listAdapter.notifyDataSetChanged();
+        updateListView();
+        updateTextView();
     }
 
     /**
@@ -174,6 +168,15 @@ public class MainFragment extends Fragment {
         /// pretty simple.
         TextView textView = (TextView) getView(view, R.id.textView_people);
         textView.setText(R.string.title_people);
+    }
+
+    /**
+     * Updates the TextView.
+     * <p>
+     * Part of the Configure/Init/Update pattern.
+     */
+    private void updateTextView() {
+        // Nothing to do (yet)
     }
 
     /**
@@ -208,6 +211,23 @@ public class MainFragment extends Fragment {
     }
 
     /**
+     * Updates the ListView.
+     * <p>
+     * Part of the Configure/Init/Update pattern.
+     */
+    private void updateListView() {
+        // Update the ListView with the current contents of the
+        /// DB so it's always up-to-date
+        ListView listView = (ListView) getView(getView(), R.id.listView_people);
+        SimpleCursorAdapter listAdapter = (SimpleCursorAdapter) listView.getAdapter();
+        Cursor newCursor = DbHelper.instance(getActivity()).fetchAll();
+        // Swap out the cursors. The existing cursor will be closed (if the doc is
+        /// to be believed). This will also refresh the content, so no need to call
+        /// notifyDataSetChanged()
+        listAdapter.changeCursor(newCursor);
+    }
+
+    /**
      * Initializes the Add Person button. When the user clicks it, a new Person
      * object is added to the DB.
      * <p>
@@ -231,6 +251,14 @@ public class MainFragment extends Fragment {
         });
     }
 
+    /**
+     * Initializes the Delete All button. When the user clicks it, BAM! all of the
+     * rows are deleted without warning. I too like to live dangerously.
+     * <p>
+     * Part of the Configure/Init/Update pattern.
+     *
+     * @param view
+     */
     private void initDeleteAllButton(View view) {
         Button button = (Button) getView(view, R.id.button_deleteAll);
         button.setOnClickListener(new View.OnClickListener() {
