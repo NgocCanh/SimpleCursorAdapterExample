@@ -16,8 +16,6 @@
 
 package com.makotogo.mobile.learn.simplecursoradapterexample;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -30,23 +28,14 @@ public class PersonGenerator {
     private static Random rng = new Random(System.currentTimeMillis());
 
     /**
-     * Create a bunch of random employees. No jokes, people.
+     * Create a Person object using randomly generated data.
      *
-     * @param numberOfPeopleToCreate
-     *
-     * @return
+     * @return The Person object that was created.
      */
-    public static List<Person> createPeople(int numberOfPeopleToCreate) {
-        List<Person> ret = new ArrayList<>();
-        for (int index = 0; index < numberOfPeopleToCreate; index++) {
-            ret.add(new Person(generateRandomLastName(), generateRandomFirstName(), generateRandomAge(), generateRandomEyeColor(), generateRandomGender()));
-        }
-        return ret;
-    }
-
     public static Person createPerson() {
         return new Person(generateRandomLastName(), generateRandomFirstName(), generateRandomAge(), generateRandomEyeColor(), generateRandomGender());
     }
+
     /**
      * Warm up the random number generator. Call it a random
      * number of times. Inception? You bet.
@@ -75,25 +64,24 @@ public class PersonGenerator {
     }
 
     /**
-     * Generates a random name. D&D style. That's right. I'm a geek
-     * and proud of it.
+     * Generate a random last name using the LAST_NAME array
+     * along with a random index into the array.
      *
-     * @return
+     * @return String - the, um, random last name
      */
-    private static String generateRandomName() {
-        String prefix = NAME_PREFIX[generateRandomNumber(NAME_PREFIX.length)];
-        String suffix = NAME_SUFFIX[generateRandomNumber(NAME_SUFFIX.length)];
-
-        return prefix + suffix;
-    }
-
     private static String generateRandomLastName() {
-        String suffix = NAME_SUFFIX[generateRandomNumber(NAME_SUFFIX.length)];
+        String suffix = LAST_NAME[generateRandomNumber(LAST_NAME.length)];
         return suffix;
     }
 
+    /**
+     * Generate a random first name using the LAST_NAME array
+     * along with a random index into the array.
+     *
+     * @return String - the, um, random first name
+     */
     private static String generateRandomFirstName() {
-        String prefix = NAME_PREFIX[generateRandomNumber(NAME_PREFIX.length)];
+        String prefix = FIRST_NAME[generateRandomNumber(FIRST_NAME.length)];
         return prefix;
     }
 
@@ -113,8 +101,8 @@ public class PersonGenerator {
      *
      * @return
      */
-    private static Gender generateRandomGender() {
-        Gender[] genders = Gender.values();
+    private static Person.Gender generateRandomGender() {
+        Person.Gender[] genders = Person.Gender.values();
 
         int randomIndex = generateRandomNumber(genders.length * 1000) / 1000;
 
@@ -127,46 +115,15 @@ public class PersonGenerator {
      *
      * @return
      */
-    private static EyeColor generateRandomEyeColor() {
-        EyeColor[] eyeColors = EyeColor.values();
+    private static Person.EyeColor generateRandomEyeColor() {
+        Person.EyeColor[] eyeColors = Person.EyeColor.values();
 
         int randomIndex = generateRandomNumber(eyeColors.length * 1000) / 1000;
 
         return eyeColors[randomIndex];
     }
 
-    /**
-     * Generate a random (String) number that looks (sort of) like a TIN.
-     * Shouldn't that be stannous, you ask? No, not that kind of tin.
-     *
-     * @return
-     */
-    private static String generateRandomTin() {
-
-        int upperBound = 999999999;
-        int lowerBound = 100000000;
-
-        int randomNumber = generateRandomNumber(upperBound - lowerBound) + lowerBound;
-
-        return Integer.toString(randomNumber);
-    }
-
-    /**
-     * Generate a random (String) number that looks like some kind of Employee
-     * number. Yes, this is totally contrived. Welcome to demo software.
-     *
-     * @return
-     */
-    private static String generateRandomEmployeeNumber() {
-        int upperBound = 999;
-        int lowerBound = 100;
-
-        int randomNumber = generateRandomNumber(upperBound - lowerBound) + lowerBound;
-
-        return Integer.toString(randomNumber);
-    }
-
-    private static final String[] NAME_PREFIX = {
+    private static final String[] LAST_NAME = {
             "Anon",
             "Bazog",
             "Con",
@@ -192,7 +149,7 @@ public class PersonGenerator {
             "Zhangth"
     };
 
-    private static final String[] NAME_SUFFIX = {
+    private static final String[] FIRST_NAME = {
             "Ag",
             "Bog",
             "Cain",

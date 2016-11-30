@@ -20,7 +20,13 @@ import java.util.Date;
 
 public class Person {
 
-    public static final String STATE_DELIMITER = "~";
+    public enum EyeColor {
+        BLACK, BROWN, BLUE, GREEN, HAZEL, GOLD, UNKNOWN
+    }
+
+    public enum Gender {
+        MALE, FEMALE, UNKNOWN
+    }
 
     public Person(String lastName, String firstName, int age, EyeColor eyeColor, Gender gender) {
         this.lastName = lastName;
@@ -29,6 +35,33 @@ public class Person {
         this.eyeColor = eyeColor;
         this.gender = gender;
     }
+
+    //************************************
+    //* D B - S P E C F I C    S T U F F *
+    //************************************
+
+    private Long mId;
+    private Date mWhenCreated;
+
+    public Long getId() {
+        return mId;
+    }
+
+    public void setId(Long id) {
+        this.mId = id;
+    }
+
+    public Date getWhenCreated() {
+        return mWhenCreated;
+    }
+
+    public void setWhenCreated(Date whenCreated) {
+        this.mWhenCreated = whenCreated;
+    }
+
+    //***********************
+    //* A T T R I B U T E S *
+    //***********************
 
     private String lastName;
     private String firstName;
@@ -74,29 +107,6 @@ public class Person {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    //************************************
-    //* D B - S P E C F I C    S T U F F *
-    //************************************
-
-    private Long mId;
-    private Date mWhenCreated;
-
-    public Long getId() {
-        return mId;
-    }
-
-    public void setId(Long id) {
-        this.mId = id;
-    }
-
-    public Date getWhenCreated() {
-        return mWhenCreated;
-    }
-
-    public void setWhenCreated(Date whenCreated) {
-        this.mWhenCreated = whenCreated;
     }
 
     @Override

@@ -68,50 +68,16 @@ import android.widget.Toast;
 public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        processFragmentArguments();
 
         View ret = configureUI(inflater, container, savedInstanceState);
-
-        // If this Fragment already exists, then reconstitute it.
-        /// Yep, sounds pretty gross (Soylent Green is people, man!)
-        if (savedInstanceState != null) {
-            restoreInstanceState(savedInstanceState);
-        }
 
         // Return the View
         return ret;
     }
 
-    //**************************************
-    //* L I F E C Y C L E    M E T H O D S *
-    //**************************************
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateUI();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        saveInstanceState(outState);
-    }
-
     //********************************
     //* H E L P E R    M E T H O D S *
     //********************************
-
-    private void processFragmentArguments() {
-        // Nothing to do (yet)
-    }
-
-    private void saveInstanceState(Bundle outState) {
-        // Nothing to do (yet)
-    }
-
-    private void restoreInstanceState(Bundle savedInstanceState) {
-        // Nothing to do (yet)
-    }
 
     /**
      * Configures the UI.
@@ -129,7 +95,7 @@ public class MainFragment extends Fragment {
         // Inflate the layout from the XML definition
         View ret = layoutInflater.inflate(R.layout.fragment_main, container, false);
 
-        // Initialize the TextView
+        // (1) Initialize the TextView
         initTextView(ret);
 
         // Initialize the ListView
