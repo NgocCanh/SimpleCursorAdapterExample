@@ -19,7 +19,6 @@ package com.makotogo.mobile.learn.simplecursoradapterexample;
 import android.app.Fragment;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -172,7 +171,7 @@ public class MainFragment extends Fragment {
         };
         //
         Cursor cursor = DbHelper.instance(getActivity()).fetchAll();
-        ListAdapter listAdapter = new SimpleCursorAdapter(getActivity(), R.layout.listview_row, cursor, columns, resourceIds, 0);
+        ListAdapter listAdapter = new SimpleCursorAdapter(getActivity(), R.layout.listview_people_row, cursor, columns, resourceIds, 0);
         listView.setAdapter(listAdapter);
     }
 
